@@ -1,11 +1,15 @@
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 import App from './App.vue'
 import router from './router/index'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
-console.log(import.meta.env);
+import api from './api'
+import store from './store'
 
 const app = createApp(App);
-app.use(router).use(ElementPlus)
+
+// app.config.globalProperties.$request = request
+app.config.globalProperties.$api = api
+app.use(router).use(ElementPlus).use(store)
 app.mount('#app')
