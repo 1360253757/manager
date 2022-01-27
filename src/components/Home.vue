@@ -8,7 +8,7 @@
       </div>
       <div class="wrapper">
         <div class="main">
-          <router-view></router-view>
+          <router-view style="height: 100%"></router-view>
         </div>
       </div>
     </div>

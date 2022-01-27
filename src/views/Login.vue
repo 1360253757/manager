@@ -4,12 +4,12 @@
       <el-form ref="userForm" style="max-width: 460px" :model="form"
                :rules="rules" status-icon>
         <div class="title">安特管理系统</div>
-        <el-form-item prop="username">
-          <el-input placeholder="Please input username" type="text" :prefix-icon="User" v-model="form.username"/>
+        <el-form-item prop="userName">
+          <el-input placeholder="Please input username" type="text" :prefix-icon="User" v-model="form.userName"/>
         </el-form-item>
-        <el-form-item class="password" prop="password">
-          <el-input placeholder="Please input password" type="password" :prefix-icon="View" show-password
-                    v-model="form.password"/>
+        <el-form-item class="password" prop="userPwd">
+          <el-input placeholder="Please input password" type="password" :prefix-icon="View"
+                    v-model="form.userPwd"/>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" class="btn-login" @click="login">登录</el-button>
@@ -30,18 +30,18 @@ export default {
       User,
       View,
       form: {
-        username: "",
-        password: ""
+        userName: "",
+        userPwd: ""
       },
       rules: {
-        username: [
+        userName: [
           {
             required: true,
             message: "请输入用户名",
             trigger: "blur",
           },
         ],
-        password: [
+        userPwd: [
           {
             required: true,
             message: "请输入密码",
@@ -91,9 +91,10 @@ export default {
     }
 
     .password {
-      .el-input__suffix {
-        left: 12px !important;
-      }
+      //.el-input__suffix-inner {
+      //  position: relative;
+      //  right: 348px;
+      //}
 
       .el-input__inner {
         padding-left: 31px;
