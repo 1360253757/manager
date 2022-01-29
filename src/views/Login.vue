@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import {ref} from "vue";
 import {User, View} from "@element-plus/icons-vue"
 
 export default {

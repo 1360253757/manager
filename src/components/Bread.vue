@@ -1,0 +1,30 @@
+<template>
+  <el-breadcrumb :separator-icon="ArrowRight">
+    <el-breadcrumb-item  v-for="(item, index) in breadList" :key="item.path">
+      <router-link to="/" v-if="index === 0" style="font-weight: normal;">{{item.meta.title}}</router-link>
+      <span v-else>{{item.meta.title}}</span>
+    </el-breadcrumb-item>
+  </el-breadcrumb>
+</template>
+
+<script>
+import { ArrowRight } from '@element-plus/icons-vue'
+
+export default {
+  name: "Bread",
+  data() {
+    return {
+      ArrowRight
+    }
+  },
+  computed: {
+    breadList() {
+      return this.$route.matched
+    }
+  },
+}
+</script>
+
+<style scoped>
+
+</style>
