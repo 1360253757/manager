@@ -45,9 +45,7 @@
         </div>
       </div>
       <div class="wrapper">
-        <div class="main">
           <router-view style="height: 100%"></router-view>
-        </div>
       </div>
     </div>
   </div>

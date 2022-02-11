@@ -20,6 +20,14 @@ const routes = [
                     title: '欢迎页'
                 },
                 component: () => import('../views/Welcome.vue')
+            },
+            {
+                name: 'user',
+                path: '/system/user',
+                meta: {
+                    title: "用户管理"
+                },
+                component: () => import('../views/User.vue')
             }
         ]
     },

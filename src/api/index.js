@@ -1,11 +1,13 @@
 import request from './../utils/request'
+import user from './user'
 
 export default {
     login(data) {
         return request({
-            url: '/user/login',
+            url: '/users/login',
             method: 'post',
-            data
+            data,
+            mock: false
         })
     },
     // 检查未读通知数
@@ -22,4 +24,5 @@ export default {
             method: 'get'
         })
     },
+    user
 }
