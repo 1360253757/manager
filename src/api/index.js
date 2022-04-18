@@ -1,5 +1,6 @@
 import request from './../utils/request'
 import user from './user'
+import menu from './menu'
 
 export default {
     login(data) {
@@ -18,11 +19,12 @@ export default {
         })
     },
     // 获取 nav 菜单列表
-    getMenuList() {
-        return request({
-            url: '/menu/list',
-            method: 'get'
-        })
-    },
-    user
+    // getMenuList() {
+    //     return request({
+    //         url: '/menu/list',
+    //         method: 'get'
+    //     })
+    // },
+    user,
+    menu
 }

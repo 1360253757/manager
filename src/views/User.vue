@@ -36,7 +36,7 @@
         >
       </div>
       <el-table :data="userList" @selection-change="handleSelectionChange">
-        <el-table-column type="selection" width="55"/>
+        <el-table-column type="selection" width="40"/>
         <el-table-column
             v-for="item in columns"
             :key="item.prop"
@@ -318,7 +318,7 @@ export default {
       const res = await ctx.$api.user.userDel({
         userIds: selectedUserIds
       })
-      if (res.nModified > 0) {
+      if (res > 0) {
         ctx.$message.success("删除成功")
         await getUserList()
       }

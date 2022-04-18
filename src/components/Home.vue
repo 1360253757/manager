@@ -2,14 +2,15 @@
   <div class="basic-layout">
     <div :class="['nav-side', isCollapse ? 'fold' : 'unfold']">
       <div class="logo">
-        <img src="../assets/logo.png" alt="logo">
-        <p>Manager</p>
+<!--        <img src="../assets/logo.png" alt="logo">-->
+        <p>后台管理系统</p>
       </div>
       <el-menu
-          default-active="1"
+          default-active="/system/user"
           class="el-menu-vertical-demo"
           :collapse="isCollapse"
           background-color="#001529"
+          active-text-color="#ffd04b"
           text-color="#fff"
           router
       >
@@ -87,9 +88,7 @@ export default {
     },
 
     async getMenuList() {
-      this.menuList = await this.$api.getMenuList()
-      console.log("menuList")
-      console.log(this.menuList)
+      this.menuList = await this.$api.menu.getMenuList()
     }
   }
 }
@@ -113,12 +112,14 @@ export default {
       align-items: center;
       font-size: 18px;
       height: 50px;
+      justify-content: center;
+      width: 100%;
 
-      img {
-        width: 32px;
-        height: 32px;
-        margin: 0 16px;
-      }
+      //img {
+      //  width: 32px;
+      //  height: 32px;
+      //  margin: 0 16px;
+      //}
     }
 
     .nav-menu {

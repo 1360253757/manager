@@ -11,5 +11,5 @@ const app = createApp(App);
 
 // app.config.globalProperties.$request = request
 app.config.globalProperties.$api = api
-app.use(router).use(ElementPlus).use(store)
+app.use(router).use(ElementPlus, { size: 'mini' }).use(store)
 app.mount('#app')
