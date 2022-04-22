@@ -3,7 +3,7 @@
     <div class="query-form">
       <el-form ref="form" :inline="true" :model="queryForm">
         <el-form-item label="菜单名称" prop="menuName">
-          <el-input v-model="queryForm.menuName" placeholder="请输入菜单名称" />
+          <el-input v-model="queryForm.menuName" placeholder="请输入菜单名称"/>
         </el-form-item>
         <el-form-item label="菜单状态" prop="menuState">
           <el-select v-model="queryForm.menuState">
@@ -22,35 +22,39 @@
         <el-button type="primary" @click="handleAdd(1)">新增</el-button>
       </div>
       <el-table
-        :data="menuList"
-        row-key="_id"
-        :tree-props="{ children: 'children' }"
+          :data="menuList"
+          row-key="_id"
+          :tree-props="{ children: 'children' }"
+          :expand-row-keys="expandRowKeys"
       >
         <el-table-column
-          v-for="item in columns"
-          :key="item.prop"
-          :prop="item.prop"
-          :label="item.label"
-          :width="item.width"
-          :formatter="item.formatter"
+            v-for="item in columns"
+            :key="item.prop"
+            :prop="item.prop"
+            :label="item.label"
+            :width="item.width"
+            :formatter="item.formatter"
         >
         </el-table-column>
         <el-table-column label="操作" width="260">
           <template #default="scope">
             <el-button
-              @click="handleAdd(2, scope.row)"
-              type="primary"
-              size="default"
-              >新增</el-button
+                @click="handleAdd(2, scope.row)"
+                type="primary"
+                size="default"
+            >新增
+            </el-button
             >
             <el-button @click="handleEdit(scope.row)" size="default"
-              >编辑</el-button
+            >编辑
+            </el-button
             >
             <el-button
-              type="danger"
-              size="default"
-              @click="handleDel(scope.row._id)"
-              >删除</el-button
+                type="danger"
+                size="default"
+                @click="handleDel(scope.row._id)"
+            >删除
+            </el-button
             >
           </template>
         </el-table-column>
@@ -58,17 +62,17 @@
     </div>
     <el-dialog title="用户新增" v-model="showModal">
       <el-form
-        ref="dialogForm"
-        :model="menuForm"
-        label-width="100px"
-        :rules="rules"
+          ref="dialogForm"
+          :model="menuForm"
+          label-width="100px"
+          :rules="rules"
       >
         <el-form-item label="父级菜单" prop="parentId">
           <el-cascader
-            v-model="menuForm.parentId"
-            :options="menuList"
-            :props="{ checkStrictly: true, value: '_id', label: 'menuName' }"
-            clearable
+              v-model="menuForm.parentId"
+              :options="menuList"
+              :props="{ checkStrictly: true, value: '_id', label: 'menuName' }"
+              clearable
           />
           <span>不选，则直接创建一级菜单</span>
         </el-form-item>
@@ -79,40 +83,40 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="菜单名称" prop="menuName">
-          <el-input v-model="menuForm.menuName" placeholder="请输入菜单名称" />
+          <el-input v-model="menuForm.menuName" placeholder="请输入菜单名称"/>
         </el-form-item>
         <el-form-item
-          label="菜单图标"
-          prop="icon"
-          v-show="menuForm.menuType == 1"
+            label="菜单图标"
+            prop="icon"
+            v-show="menuForm.menuType == 1"
         >
-          <el-input v-model="menuForm.icon" placeholder="请输入岗位" />
+          <el-input v-model="menuForm.icon" placeholder="请输入岗位"/>
         </el-form-item>
         <el-form-item
-          label="路由地址"
-          prop="path"
-          v-show="menuForm.menuType == 1"
+            label="路由地址"
+            prop="path"
+            v-show="menuForm.menuType == 1"
         >
-          <el-input v-model="menuForm.path" placeholder="请输入路由地址" />
+          <el-input v-model="menuForm.path" placeholder="请输入路由地址"/>
         </el-form-item>
         <el-form-item
-          label="权限标识"
-          prop="menuCode"
-          v-show="menuForm.menuType == 2"
+            label="权限标识"
+            prop="menuCode"
+            v-show="menuForm.menuType == 2"
         >
-          <el-input v-model="menuForm.menuCode" placeholder="请输入权限标识" />
+          <el-input v-model="menuForm.menuCode" placeholder="请输入权限标识"/>
         </el-form-item>
         <el-form-item
-          label="组件路径"
-          prop="component"
-          v-show="menuForm.menuType == 1"
+            label="组件路径"
+            prop="component"
+            v-show="menuForm.menuType == 1"
         >
-          <el-input v-model="menuForm.component" placeholder="请输入组件路径" />
+          <el-input v-model="menuForm.component" placeholder="请输入组件路径"/>
         </el-form-item>
         <el-form-item
-          label="菜单状态"
-          prop="menuState"
-          v-show="menuForm.menuType == 1"
+            label="菜单状态"
+            prop="menuState"
+            v-show="menuForm.menuType == 1"
         >
           <el-radio-group v-model="menuForm.menuState">
             <el-radio :label="1">正常</el-radio>
@@ -131,6 +135,7 @@
 </template>
 <script>
 import utils from "../utils/utils";
+
 export default {
   name: "menu",
   data() {
@@ -213,6 +218,7 @@ export default {
           },
         ],
       },
+      expandRowKeys: [] // 默认展开行的key数组
     };
   },
   mounted() {
@@ -224,6 +230,11 @@ export default {
       try {
         let list = await this.$api.menu.getMenuList(this.queryForm);
         this.menuList = list;
+        let rowKeys = [];
+        for (let i = 0; i < list.length; i++) {
+          rowKeys[i] = list[i]._id;
+        }
+        this.expandRowKeys = rowKeys;
       } catch (e) {
         throw new Error(e);
       }
@@ -238,7 +249,7 @@ export default {
       this.action = "add";
       if (type == 2) {
         this.menuForm.parentId = [...row.parentId, row._id].filter(
-          (item) => item
+            (item) => item
         );
       }
     },
@@ -250,7 +261,7 @@ export default {
       });
     },
     async handleDel(_id) {
-      await this.$api.menu.menuSubmit({ _id, action: "delete" });
+      await this.$api.menu.menuSubmit({_id, action: "delete"});
       this.$message.success("删除成功");
       this.getMenuList();
     },
@@ -258,8 +269,8 @@ export default {
     handleSubmit() {
       this.$refs.dialogForm.validate(async (valid) => {
         if (valid) {
-          let { action, menuForm } = this;
-          let params = { ...menuForm, action };
+          let {action, menuForm} = this;
+          let params = {...menuForm, action};
           let res = await this.$api.menu.menuSubmit(params);
           this.showModal = false;
           this.$message.success("操作成功");
