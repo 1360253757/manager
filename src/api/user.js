@@ -45,4 +45,12 @@ export default {
             mock: false
         })
     },
+    getAllUserList() {
+        return request({
+            url: '/users/all/list',
+            method: 'get',
+            data: {},
+            mock: false
+        })
+    },
 }

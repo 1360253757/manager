@@ -2,6 +2,7 @@ import request from './../utils/request'
 import user from './user'
 import menu from './menu'
 import role from './role'
+import dept from './dept'
 
 export default {
     login(data) {
@@ -28,5 +29,6 @@ export default {
     // },
     user,
     menu,
-    role
+    role,
+    dept
 }
