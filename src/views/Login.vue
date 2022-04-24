@@ -19,6 +19,9 @@
 
 <script>
 import {User, Key} from "@element-plus/icons-vue"
+import {toRaw} from "vue";
+import utils from "../utils/utils";
+import storage from "../utils/storage";
 
 export default {
   name: "Login",
@@ -52,14 +55,30 @@ export default {
     login() {
       this.$refs.userForm.validate((valid) => {
         if (valid) {
-          this.$api.login(this.form).then((res) => {
+          this.$api.login(this.form).then(async (res) => {
             this.$store.commit("saveUserInfo", res);
-            this.$router.push("/system/user");
+            await this.loadAsyncRoutes();
+            await this.$router.push("/system/user");
           });
         } else {
           return false;
         }
       });
+    },
+    async loadAsyncRoutes() {
+      let userInfo = storage.getItem("userInfo") || {};
+      if (userInfo.token) {
+        try {
+          const {menuList} = await this.$api.getPermissionList();
+          let routes = utils.generateRoute(menuList);
+          routes.map((route) => {
+            let url = `./../views/${route.component}.vue`;
+            route.component = () => import(url);
+            this.router.addRoute("home", route);
+          });
+        } catch (error) {
+        }
+      }
     }
   }
 }

@@ -9,6 +9,13 @@ export default {
             mock: false
         })
     },
+    getRoleAllList() {
+        return request({
+            url: '/roles/allList',
+            method: 'get',
+            mock: false
+        })
+    },
     roleOperate(params) {
         return request({
             url: '/roles/operate',

@@ -14,7 +14,7 @@
           text-color="#fff"
           router
       >
-        <tree-menu :menu-list="menuList"/>
+        <tree-menu :menu-list="userMenu"/>
       </el-menu>
     </div>
     <div :class="['content-right', isCollapse ? 'fold' : 'unfold']">
@@ -64,7 +64,7 @@ export default {
     return {
       isCollapse: false,
       noticeCount: 0,
-      menuList: [],
+      userMenu: [],
       userInfo: {
         userName: 'admin',
         email: 'admin@163.com'
@@ -88,8 +88,15 @@ export default {
     },
 
     async getMenuList() {
-      this.menuList = await this.$api.menu.getMenuList()
-    }
+      try {
+        const { menuList, actionList } = await this.$api.getPermissionList();
+        this.$store.commit("saveMenuList", menuList);
+        this.$store.commit("saveActionList", actionList);
+        this.userMenu = menuList;
+      } catch (error) {
+        console.error(error);
+      }
+    },
   }
 }
 </script>

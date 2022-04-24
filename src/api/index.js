@@ -20,6 +20,14 @@ export default {
             method: 'get'
         })
     },
+    getPermissionList() {
+        return request({
+            url: '/users/getPermissionList',
+            method: 'get',
+            data: {},
+            mock: false
+        })
+    },
     // 获取 nav 菜单列表
     // getMenuList() {
     //     return request({

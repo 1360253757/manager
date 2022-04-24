@@ -34,8 +34,7 @@ export default {
                         path: item.path,
                         meta: {
                             title: item.menuName
-                        },
-                        component: item.component
+                        }
                     })
                 }
                 if (item.children && !item.action) {

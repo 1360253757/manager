@@ -24,13 +24,13 @@
     </div>
     <div class="base-table">
       <div class="action">
-        <el-button type="primary" @click="handleCreate"
-        >新增
+        <el-button type="primary" @click="handleCreate" v-has="'user-add'">新增
         </el-button
         >
         <el-button
             type="danger"
             @click="handlePatchDel"
+            v-has="'user-delete'"
         >批量删除
         </el-button
         >
@@ -47,7 +47,7 @@
         />
         <el-table-column label="操作">
           <template #default="scope">
-            <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
+            <el-button size="small" @click="handleEdit(scope.$index, scope.row)" v-has="'user-modify'"
             >编辑
             </el-button>
             <el-button
@@ -55,6 +55,7 @@
                 type="danger"
                 @click="handleDelete(scope.$index, scope.row)"
                 :disabled="scope.row.state === 2"
+                v-has="'user-delete'"
             >删除
             </el-button>
           </template>
@@ -350,7 +351,7 @@ export default {
     }
     // 新增用户时的角色列表
     const getRoleList = async () => {
-      roleList.value = await ctx.$api.user.getRoleAllList()
+      roleList.value = await ctx.$api.role.getRoleAllList()
     }
     // 新增用户时的部门列表
     const getDeptList = async () => {
