@@ -3,6 +3,7 @@ import user from './user'
 import menu from './menu'
 import role from './role'
 import dept from './dept'
+import leave from './leave'
 
 export default {
     login(data) {
@@ -28,15 +29,9 @@ export default {
             mock: false
         })
     },
-    // 获取 nav 菜单列表
-    // getMenuList() {
-    //     return request({
-    //         url: '/menu/list',
-    //         method: 'get'
-    //     })
-    // },
     user,
     menu,
     role,
-    dept
+    dept,
+    leave
 }

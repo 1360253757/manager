@@ -8,13 +8,21 @@ const routes = [
     {
         name: 'home',
         path: '/',
-        component: Home,
-        redirect: {
-            name: 'welcome'
-        },
         meta: {
             title: '首页'
-        }
+        },
+        component: Home,
+        redirect: '/welcome',
+        children: [
+            {
+                name: 'welcome',
+                path: '/welcome',
+                meta: {
+                    title: '欢迎体验Vue3全栈课程'
+                },
+                component: () => import('@/views/Welcome.vue')
+            }
+        ]
     },
     {
         name: 'login',
