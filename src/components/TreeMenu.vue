@@ -3,7 +3,8 @@
     <el-sub-menu :index="menu.path" v-if="menu.children && menu.children.length > 0 && menu.children[0].menuType == 1">
       <template #title>
         <el-icon>
-          <setting/>
+          <setting v-if="menu.icon === 'system'"/>
+          <document v-if="menu.icon === 'document'"/>
         </el-icon>
         <span>{{ menu.menuName }}</span>
       </template>
@@ -14,11 +15,11 @@
 </template>
 
 <script>
-import {Location, Setting} from '@element-plus/icons-vue'
+import {Location, Setting, Document} from '@element-plus/icons-vue'
 
 export default {
   name: "TreeMenu",
-  components: {Setting, Location},
+  components: {Setting, Location, Document},
   props: {
     menuList: {
       type: Array,
@@ -26,10 +27,6 @@ export default {
         return [];
       },
     }
-  },
-
-  mounted() {
-    // console.log(this.menuList)
   }
 }
 </script>

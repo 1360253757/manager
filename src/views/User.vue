@@ -73,7 +73,7 @@
   </div>
   <!--  Dialog 部分-->
 
-  <el-dialog title="用户新增" v-model="showModal">
+  <el-dialog title="用户信息" v-model="showModal">
     <el-form
         ref="dialogForm"
         :model="userForm"
@@ -179,10 +179,15 @@ export default {
         label: "用户角色",
         prop: "role",
         formatter(row, column, value) {
-          return {
-            0: "管理员",
-            1: "普通用户",
-          }[value];
+          let showRole = [];
+          row.roleList.forEach((item, value) => {
+            roleList.value.forEach(role => {
+              if (role._id == item) {
+                showRole.push(role.roleName)
+              }
+            })
+          })
+          return showRole.toString()
         },
       },
       {
@@ -339,11 +344,11 @@ export default {
       dialogForm.value.validate(async (valid) => {
         if (valid) {
           let data = toRaw(userForm)
-          console.log(data)
           data.action = action.value
           const res = await ctx.$api.user.userSubmit(data)
           showModal.value = false
-          ctx.$message.success('用户创建成功')
+          let notice = data.action === "edit" ? "修改成功" : "新增用户成功"
+          ctx.$message.success(notice)
           await handleReset(dialogForm.value)
           await getUserList()
         }

@@ -60,7 +60,7 @@
         </el-table-column>
       </el-table>
     </div>
-    <el-dialog title="用户新增" v-model="showModal">
+    <el-dialog title="菜单信息" v-model="showModal">
       <el-form
           ref="dialogForm"
           :model="menuForm"
@@ -164,10 +164,6 @@ export default {
               2: "按钮",
             }[value];
           },
-        },
-        {
-          label: "权限标识",
-          prop: "menuCode",
         },
         {
           label: "路由地址",

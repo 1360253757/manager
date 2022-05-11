@@ -1,15 +1,13 @@
 <template>
   <div class="container">
     <div class="modal">
-      <el-form ref="userForm" class="login-form" style="max-width: 460px" :model="form"
-               :rules="rules" status-icon>
+      <el-form ref="userForm" class="login-form" style="max-width: 460px" :model="form" :rules="rules" status-icon>
         <div class="title">后台管理系统</div>
         <el-form-item prop="userName">
           <el-input placeholder="Please input username" type="text" :prefix-icon="User" v-model="form.userName"/>
         </el-form-item>
         <el-form-item class="password" prop="userPwd">
-          <el-input placeholder="Please input password" type="password" :prefix-icon="Key"
-                    v-model="form.userPwd"/>
+          <el-input placeholder="Please input password" type="password" :prefix-icon="Key" v-model="form.userPwd"/>
         </el-form-item>
         <el-button type="primary" class="btn-login" @click="login">登录</el-button>
       </el-form>

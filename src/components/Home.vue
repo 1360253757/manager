@@ -1,17 +1,13 @@
 <template>
   <div class="basic-layout">
     <div :class="['nav-side', isCollapse ? 'fold' : 'unfold']">
-      <div class="logo">
-<!--        <img src="../assets/logo.png" alt="logo">-->
-        <p>后台管理系统</p>
-      </div>
       <el-menu
           default-active="/system/user"
           class="el-menu-vertical-demo"
           :collapse="isCollapse"
-          background-color="#001529"
-          active-text-color="#ffd04b"
-          text-color="#fff"
+          background-color="#304156"
+          text-color="#bfcbd9"
+          active-text-color="#409EFF"
           router
       >
         <tree-menu :menu-list="userMenu"/>
@@ -26,7 +22,7 @@
           <el-icon class="icon-expand" v-else @click="isCollapse = false">
             <expand/>
           </el-icon>
-          <bread />
+          <bread/>
         </div>
         <div class="user">
           <el-badge :is-dot="noticeCount > 0" class="notice">
@@ -38,7 +34,7 @@
             <span class="user-link">{{ userInfo.userName }}</span>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item command="email">邮箱：{{ userInfo.email }}</el-dropdown-item>
+                <el-dropdown-item command="email">邮箱：{{ userInfo.userEmail }}</el-dropdown-item>
                 <el-dropdown-item command="logout">退出</el-dropdown-item>
               </el-dropdown-menu>
             </template>
@@ -46,7 +42,7 @@
         </div>
       </div>
       <div class="wrapper">
-          <router-view style="height: 100%"></router-view>
+        <router-view style="height: 100%"></router-view>
       </div>
     </div>
   </div>
@@ -65,19 +61,18 @@ export default {
       isCollapse: false,
       noticeCount: 0,
       userMenu: [],
-      userInfo: {
-        userName: 'admin',
-        email: 'admin@163.com'
-      }
+      userInfo: {}
     }
   },
   mounted() {
+    this.userInfo = this.$store.state.userInfo
     this.getNoticeCount()
     this.getMenuList()
   },
   methods: {
     handleCommand(key) {
       if (key == "email") return;
+      // 注销
       this.$store.commit("saveUserInfo", "");
       this.userInfo = {};
       this.$router.push("/login");
@@ -89,7 +84,7 @@ export default {
 
     async getMenuList() {
       try {
-        const { menuList, actionList } = await this.$api.getPermissionList();
+        const {menuList, actionList} = await this.$api.getPermissionList();
         this.$store.commit("saveMenuList", menuList);
         this.$store.commit("saveActionList", actionList);
         this.userMenu = menuList;
@@ -107,30 +102,14 @@ export default {
 
   .nav-side {
     position: fixed;
-    width: 200px;
+    width: 220px;
     height: 100vh;
-    background-color: #001529;
     color: #ffffff;
     overflow-y: auto;
     transition: width .5s;
 
-    .logo {
-      display: flex;
-      align-items: center;
-      font-size: 18px;
-      height: 50px;
-      justify-content: center;
-      width: 100%;
-
-      //img {
-      //  width: 32px;
-      //  height: 32px;
-      //  margin: 0 16px;
-      //}
-    }
-
-    .nav-menu {
-      height: calc(100vh - 50px);
+    .el-menu-vertical-demo {
+      height: 100%;
       border-right: none;
     }
 
@@ -141,12 +120,12 @@ export default {
 
     // 展开
     &.unfold {
-      width: 200px;
+      width: 220px;
     }
   }
 
   .content-right {
-    margin-left: 200px;
+    margin-left: 220px;
     transition: margin-left .5s;
     // 合并
     &.fold {
@@ -155,7 +134,7 @@ export default {
 
     // 展开
     &.unfold {
-      margin-left: 200px;
+      margin-left: 220px;
     }
 
     .nav-top {

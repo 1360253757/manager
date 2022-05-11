@@ -57,7 +57,7 @@
           @current-change="handleCurrentChange"
       />
     </div>
-    <el-dialog title="用户新增" v-model="showModal">
+    <el-dialog title="角色信息" v-model="showModal">
       <el-form
           ref="dialogForm"
           :model="roleForm"

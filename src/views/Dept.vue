@@ -22,7 +22,6 @@
           :data="deptList"
           row-key="_id"
           :tree-props="{ children: 'children' }"
-          stripe
           :expand-row-keys="expandRowKeys"
       >
         <el-table-column

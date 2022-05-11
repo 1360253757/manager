@@ -24,7 +24,7 @@ export default {
         return request({
             url: '/roles/allList',
             method: 'get',
-            mock: true
+            mock: false
         })
     },
     // 新增用户时的部门列表
@@ -33,7 +33,7 @@ export default {
             url: '/dept/list',
             method: 'get',
             data,
-            mock: true
+            mock: false
         })
     },
     // 新建/编辑用户
