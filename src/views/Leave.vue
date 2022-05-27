@@ -4,7 +4,7 @@
       <el-form ref="form" :inline="true" :model="queryForm">
         <el-form-item label="审批状态" prop="applyState">
           <el-select v-model="queryForm.applyState">
-            <el-option value="" label="全部"></el-option>
+            <el-option :value="0" label="全部"></el-option>
             <el-option :value="1" label="待审批"></el-option>
             <el-option :value="2" label="审批中"></el-option>
             <el-option :value="3" label="审批拒绝"></el-option>
@@ -160,7 +160,7 @@ export default {
     //   获取Composition API 上下文对象
     const ctx = getCurrentInstance().appContext.config.globalProperties
     const queryForm = reactive({
-      applyState: 1,
+      applyState: 4,
     });
     const pager = reactive({
       pageNum: 1,
@@ -353,6 +353,7 @@ export default {
         utils.formateDate(new Date(data.endTime), "yyyy-MM-dd");
       // 1:待审批 2:审批中 3:审批拒绝 4:审批通过 5:作废
       data.applyStateName = {
+        0: "全部",
         1: "待审批",
         2: "审批中",
         3: "审批拒绝",

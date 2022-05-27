@@ -18,5 +18,10 @@ export default defineConfig({
         alias: {
             "@": path.resolve(__dirname, "src")
         }
+    },
+    build: {
+        target: "es2019",
+        brotliSize: false,
+        chunkSizeWarningLimit: 2000
     }
 })

@@ -12,15 +12,15 @@ const routes = [
             title: '首页'
         },
         component: Home,
-        redirect: '/welcome',
+        redirect: '/system/user',
         children: [
             {
-                name: 'welcome',
-                path: '/welcome',
+                name: 'user',
+                path: '/system/user',
                 meta: {
-                    title: '欢迎体验Vue3全栈课程'
+                    title: '用户管理'
                 },
-                component: () => import('@/views/Welcome.vue')
+                component: () => import('../views/User.vue')
             }
         ]
     },
@@ -52,7 +52,9 @@ async function loadAsyncRoutes() {
     let userInfo = storage.getItem('userInfo') || {}
     if (userInfo.token) {
         try {
-            const { menuList } = await API.getPermissionList()
+            const {menuList, actionList} = await API.getPermissionList();
+            storage.setItem('actionList', actionList)
+            storage.setItem('menuList', menuList)
             let routes = utils.generateRoute(menuList)
             routes.map(route => {
                 let url = `../views/${route.name}.vue`
